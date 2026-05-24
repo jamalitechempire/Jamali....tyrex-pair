@@ -1,16 +1,81 @@
 {
-    "name": "TYREX-MD",
-    "description": "Pair Session Generator",
-    "logo": "https://i.ibb.co/PsJQ5wcQ/RD32353637343330363638313140732e77686174736170702e6e6574-634462.jpg",
-    "repository": "https://github.com/Sila-Md/SILA-M.D",
-    "keywords": ["TYREX-MD", "TYREX-TECH", "TYREX-MD"],
-    "success_url": "/", 
-    "buildpacks": [{ "url": "https://github.com/heroku/heroku-buildpack-nodejs#latest" } ],
-    "env": {      
-      "PORT": {
-        "description": "Port for web app.4000,5000,3000... any!",
-        "value": "5000",
-        "required": false 
-      }
-    }   
+    "name": "JAMALI TECH MD",
+    "description": "JAMALI TECH MD - Premium WhatsApp Bot Pairing & Session Generator",
+    "logo": "https://i.ibb.co/XfYqpkmm/be2de0bd1b96.jpg",
+    "repository": "https://github.com/jamalitechempire/Jamali-tech-bot",
+    "keywords": ["JAMALI-TECH", "JAMALI-TECH-MD", "WHATSAPP-BOT", "PREMIUM-BOT", "BAILEYS"],
+    "success_url": "/",
+    "buildpacks": [
+        { "url": "https://github.com/heroku/heroku-buildpack-nodejs#latest" },
+        { "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest" },
+        { "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git" }
+    ],
+    "env": {
+        "SESSION_ID": {
+            "description": "Your WhatsApp Bot Session ID - Leave empty to generate new one",
+            "value": "",
+            "required": false
+        },
+        "PREFIX": {
+            "description": "Bot command prefix (default: .)",
+            "value": ".",
+            "required": false
+        },
+        "OWNER_NUMBER": {
+            "description": "Bot Owner WhatsApp Number",
+            "value": "255784062158",
+            "required": false
+        },
+        "BOT_NAME": {
+            "description": "Your Bot Name",
+            "value": "JAMALI TECH MD",
+            "required": false
+        },
+        "MONGODB_URI": {
+            "description": "MongoDB Connection URI for session storage",
+            "value": "",
+            "required": true
+        },
+        "AUTO_VIEW_STATUS": {
+            "description": "Auto view status messages (true/false)",
+            "value": "true",
+            "required": false
+        },
+        "AUTO_LIKE_STATUS": {
+            "description": "Auto like status messages (true/false)",
+            "value": "true",
+            "required": false
+        },
+        "AUTO_RECORDING": {
+            "description": "Auto recording presence (true/false)",
+            "value": "true",
+            "required": false
+        },
+        "AUTO_LIKE_EMOJI": {
+            "description": "Emojis to use for auto like (comma separated)",
+            "value": "❤️,🔥,💪,⚡,✨,👑",
+            "required": false
+        },
+        "CHANNEL_LINK": {
+            "description": "Your WhatsApp Channel Link",
+            "value": "https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h",
+            "required": false
+        },
+        "REPO_LINK": {
+            "description": "GitHub Repository Link",
+            "value": "https://github.com/jamalitechempire/Jamali-tech-bot",
+            "required": false
+        },
+        "PAIRING_CODE_NAME": {
+            "description": "Pairing code name for device pairing",
+            "value": "JAMALITZ",
+            "required": false
+        },
+        "PORT": {
+            "description": "Port for web app. 3000, 4000, 5000... any!",
+            "value": "3000",
+            "required": false
+        }
+    },
+    "stack": "heroku-22"
 }
