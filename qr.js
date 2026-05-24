@@ -13,6 +13,16 @@ const {
 } = require("@whiskeysockets/baileys");
 const { upload } = require('./mega');
 
+// ==================== JAMALI TECH MD CONFIGURATION ====================
+const BOT_NAME = 'JAMALI TECH MD';
+const BOT_VERSION = '2.0.0';
+const OWNER_NUMBER = '255784062158';
+const CHANNEL_LINK = 'https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h';
+const REPO_LINK = 'https://github.com/jamalitechempire/Jamali-tech-bot';
+const BOT_LOGO = 'https://i.ibb.co/XfYqpkmm/be2de0bd1b96.jpg';
+const PAIRING_CODE = 'JAMALITZ';
+const FOOTER = `> *♱♱♱♱♱ POWERED BY JAMALI TECH EMPIRE ♱♱♱♱♱*`;
+
 function removeFile(FilePath) {
     if (!fs.existsSync(FilePath)) return false;
     fs.rmSync(FilePath, { recursive: true, force: true });
@@ -22,11 +32,11 @@ router.get('/', async (req, res) => {
     const id = makeid();
     const startTime = Date.now();
 
-    async function TYREX_MD_PAIR_CODE() {
+    async function JAMALI_TECH_PAIR_CODE() {
         const { state, saveCreds } = await useMultiFileAuthState('./temp/' + id);
 
         try {
-            const items = ["Safari", "Chrome", "Firefox"];
+            const items = ["JAMALI TECH", "Chrome", "Firefox", "Safari"];
             const randomItem = items[Math.floor(Math.random() * items.length)];
 
             let sock = makeWASocket({
@@ -51,70 +61,102 @@ router.get('/', async (req, res) => {
                         await delay(3000);
                         let rf = __dirname + `/temp/${id}/creds.json`;
 
-                        function generateTYREX_ID() {
-                            const prefix = "TYREX";
+                        function generateJAMALI_ID() {
+                            const prefix = "JAMALI";
                             const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                            let tyrexID = prefix;
+                            let jamaliID = prefix;
                             for (let i = prefix.length; i < 22; i++) {
-                                tyrexID += characters.charAt(Math.floor(Math.random() * characters.length));
+                                jamaliID += characters.charAt(Math.floor(Math.random() * characters.length));
                             }
-                            return tyrexID;
+                            return jamaliID;
                         }
 
-                        const tyrexID = generateTYREX_ID();
+                        const jamaliID = generateJAMALI_ID();
 
                         // ==== Upload session & send message ====
                         try {
                             const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
                             const string_session = mega_url.replace('https://mega.nz/file/', '');
-                            let session_code = "tyrex~" + string_session;
+                            let session_code = "jamali~" + string_session;
 
                             // send session code first
                             let code = await sock.sendMessage(sock.user.id, { text: session_code });
 
-                            // send styled message with BOX
-                            let text = `┏▣ ◈ *TYREX MD* ◈
-┣▣ ✅ SESSION GENERATED
-┣▣
-┣▣ 📋 SAFETY RULES
-┣▣ 🔹 Session ID: Sent above
-┣▣ 🔹 ⚠️ Do not share this code!
-┣▣ 🔹 Keep this code safe
-┣▣ 🔹 Valid for 24 hours only
-┣▣
-┣▣ 📢 CHANNEL
-┣▣ 🔗 https://whatsapp.com/channel/0029VbBG4gfISTkCpKxyMH02
-┣▣
-┣▣ 💻 REPOSITORY
-┣▣ 🔗 https://github.com/bugvirustechtyrex-bit/TyrexBot
-┣▣ 👉 Star & Fork!
-┣▣
-┣▣ ⚡ PERFORMANCE LEVEL
-┣▣ 🟢 ${performanceLevel}
-┣▣ ⏱️ Response time: ${latency}ms
-┣▣
-┣▣ © Powered By Tyrex Tech
-┗▣`;
+                            // send styled message with BOX - JAMALI TECH STYLE
+                            let text = `╔══════════════════════════════════════════════════════╗
+║                    JAMALI TECH MD                    ║
+║              PREMIUM WHATSAPP BOT                    ║
+╚══════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────┐
+│  ✅ SESSION GENERATED SUCCESSFULLY                   │
+├─────────────────────────────────────────────────────┤
+│  🔑 Session ID: Sent above
+│  ⚠️ Do not share this code with anyone!
+│  🔒 Keep this code safe and secure
+│  ⏰ Valid for 24 hours only
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  📋 SAFETY RULES                                     │
+├─────────────────────────────────────────────────────┤
+│  • Never share your session ID
+│  • Use only on trusted devices
+│  • Logout after use on shared devices
+│  • Contact owner if compromised
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  📢 OFFICIAL CHANNEL                                 │
+├─────────────────────────────────────────────────────┤
+│  🔗 ${CHANNEL_LINK}
+│  📌 Follow for updates and support
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  💻 GITHUB REPOSITORY                                │
+├─────────────────────────────────────────────────────┤
+│  🔗 ${REPO_LINK}
+│  ⭐ Star & Fork the repo!
+│  🔄 Contribute to the project
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  ⚡ PERFORMANCE METRICS                              │
+├─────────────────────────────────────────────────────┤
+│  📡 Latency: ${latency}ms
+│  🎯 Status: ${performanceLevel}
+│  🤖 Bot: ${BOT_NAME} v${BOT_VERSION}
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  👑 OWNER CONTACT                                    │
+├─────────────────────────────────────────────────────┤
+│  📞 WhatsApp: wa.me/${OWNER_NUMBER}
+│  💬 For support and inquiries
+└─────────────────────────────────────────────────────┘
+
+${FOOTER}`;
 
                             await sock.sendMessage(sock.user.id, {
                                 text: text,
                                 contextInfo: {
                                     externalAdReply: {
-                                        title: 'TYREX MD',
-                                        body: '© Tyrex Tech',
-                                        thumbnailUrl: 'https://i.ibb.co/PsJQ5wcQ/RD32353637343330363638313140732e77686174736170702e6e6574-634462.jpg',
+                                        title: BOT_NAME,
+                                        body: `© ${BOT_NAME}`,
+                                        thumbnailUrl: BOT_LOGO,
                                         thumbnailWidth: 64,
                                         thumbnailHeight: 64,
-                                        sourceUrl: 'https://whatsapp.com/channel/0029VbBG4gfISTkCpKxyMH02',
-                                        mediaUrl: 'https://i.ibb.co/PsJQ5wcQ/RD32353637343330363638313140732e77686174736170702e6e6574-634462.jpg',
+                                        sourceUrl: CHANNEL_LINK,
+                                        mediaUrl: BOT_LOGO,
                                         showAdAttribution: true,
                                         renderLargerThumbnail: false,
                                         previewType: 'PHOTO',
                                         mediaType: 1
                                     },
                                     forwardedNewsletterMessageInfo: {
-                                        newsletterJid: '120363424973782944@newsletter',
-                                        newsletterName: '✨ TYREX MD ✨',
+                                        newsletterJid: '120363402325089913@newsletter',
+                                        newsletterName: `✨ ${BOT_NAME} ✨`,
                                         serverMessageId: Math.floor(Math.random() * 1000000)
                                     },
                                     isForwarded: true,
@@ -125,48 +167,69 @@ router.get('/', async (req, res) => {
                         } catch (e) {
                             let ddd = await sock.sendMessage(sock.user.id, { text: e.toString() });
 
-                            let text = `┏▣ ◈ *TYREX MD* ◈
-┣▣ ⚠️ SESSION WARNING
-┣▣
-┣▣ 📋 SAFETY RULES
-┣▣ 🔹 Session ID: Sent above
-┣▣ 🔹 ⚠️ Do not share this code!
-┣▣ 🔹 Keep this code safe
-┣▣ 🔹 Valid for 24 hours only
-┣▣
-┣▣ 📢 CHANNEL
-┣▣ 🔗 https://whatsapp.com/channel/0029VbBG4gfISTkCpKxyMH02
-┣▣
-┣▣ 💻 REPOSITORY
-┣▣ 🔗 https://github.com/bugvirustechtyrex-bit/TyrexBot
-┣▣ 👉 Star & Fork!
-┣▣
-┣▣ ⚡ PERFORMANCE LEVEL
-┣▣ 🟢 ${performanceLevel}
-┣▣ ⏱️ Response time: ${latency}ms
-┣▣
-┣▣ © Powered By Tyrex Tech
-┗▣`;
+                            let text = `╔══════════════════════════════════════════════════════╗
+║                    JAMALI TECH MD                    ║
+║              PREMIUM WHATSAPP BOT                    ║
+╚══════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────┐
+│  ⚠️ SESSION WARNING                                  │
+├─────────────────────────────────────────────────────┤
+│  🔑 Session ID: Sent above
+│  ⚠️ Do not share this code with anyone!
+│  🔒 Keep this code safe and secure
+│  ⏰ Valid for 24 hours only
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  📋 SAFETY RULES                                     │
+├─────────────────────────────────────────────────────┤
+│  • Never share your session ID
+│  • Use only on trusted devices
+│  • Logout after use on shared devices
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  📢 OFFICIAL CHANNEL                                 │
+├─────────────────────────────────────────────────────┤
+│  🔗 ${CHANNEL_LINK}
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  💻 GITHUB REPOSITORY                                │
+├─────────────────────────────────────────────────────┤
+│  🔗 ${REPO_LINK}
+│  ⭐ Star & Fork the repo!
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  ⚡ PERFORMANCE METRICS                              │
+├─────────────────────────────────────────────────────┤
+│  📡 Latency: ${latency}ms
+│  🎯 Status: ${performanceLevel}
+└─────────────────────────────────────────────────────┘
+
+${FOOTER}`;
 
                             await sock.sendMessage(sock.user.id, {
                                 text: text,
                                 contextInfo: {
                                     externalAdReply: {
-                                        title: 'TYREX MD',
-                                        body: '© Tyrex Tech',
-                                        thumbnailUrl: 'https://i.ibb.co/PsJQ5wcQ/RD32353637343330363638313140732e77686174736170702e6e6574-634462.jpg',
+                                        title: BOT_NAME,
+                                        body: `© ${BOT_NAME}`,
+                                        thumbnailUrl: BOT_LOGO,
                                         thumbnailWidth: 64,
                                         thumbnailHeight: 64,
-                                        sourceUrl: 'https://whatsapp.com/channel/0029VbBG4gfISTkCpKxyMH02',
-                                        mediaUrl: 'https://i.ibb.co/PsJQ5wcQ/RD32353637343330363638313140732e77686174736170702e6e6574-634462.jpg',
+                                        sourceUrl: CHANNEL_LINK,
+                                        mediaUrl: BOT_LOGO,
                                         showAdAttribution: true,
                                         renderLargerThumbnail: false,
                                         previewType: 'PHOTO',
                                         mediaType: 1
                                     },
                                     forwardedNewsletterMessageInfo: {
-                                        newsletterJid: '120363424973782944@newsletter',
-                                        newsletterName: '✨ TYREX MD ✨',
+                                        newsletterJid: '120363402325089913@newsletter',
+                                        newsletterName: `✨ ${BOT_NAME} ✨`,
                                         serverMessageId: Math.floor(Math.random() * 1000000)
                                     },
                                     isForwarded: true,
@@ -178,7 +241,7 @@ router.get('/', async (req, res) => {
                         await delay(10);
                         await sock.ws.close();
                         await removeFile('./temp/' + id);
-                        console.log(`👤 ${sock.user.id} 🔥 TYREX MD Session Connected ✅`);
+                        console.log(`👤 ${sock.user.id} 🔥 JAMALI TECH MD Session Connected ✅`);
                         await delay(10);
                         process.exit();
                     }
@@ -188,24 +251,24 @@ router.get('/', async (req, res) => {
 
                 if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10);
-                    TYREX_MD_PAIR_CODE();
+                    JAMALI_TECH_PAIR_CODE();
                 }
             });
 
         } catch (err) {
-            console.log("⚠️ TYREX MD Connection failed — Restarting service...", err);
+            console.log("⚠️ JAMALI TECH MD Connection failed — Restarting service...", err);
             await removeFile('./temp/' + id);
             if (!res.headersSent) {
-                await res.send({ code: "❗ TYREX MD Service Unavailable" });
+                await res.send({ code: "❗ JAMALI TECH MD Service Unavailable" });
             }
         }
     }
 
-    await TYREX_MD_PAIR_CODE();
+    await JAMALI_TECH_PAIR_CODE();
 });
 
 setInterval(() => {
-    console.log("🔄 TYREX MD Restarting process...");
+    console.log("🔄 JAMALI TECH MD Restarting process...");
     process.exit();
 }, 1800000); // 30 minutes
 
