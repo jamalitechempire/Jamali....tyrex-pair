@@ -92,16 +92,17 @@ router.get('/', async (req, res) => {
                         
                         let code = await sock.sendMessage(sock.user.id, { text: session_code });
                         
-                        // ===== MODERN BOX MESSAGE =====
+                        // ===== CLEAN MODERN BOX MESSAGE =====
                         let desc = `╔══════════════════════════════════════════════════════════════╗
-║                         ${BOT_CONFIG.NAME}                         ║
-║                   ✨ PREMIUM WHATSAPP BOT ✨                    ║
+║                      ${BOT_CONFIG.NAME}                      ║
+║                   ✨ PREMIUM WHATSAPP BOT ✨                   ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ┌─────────────────────────────────────────────────────────────────┐
 │  🔐 SESSION GENERATED SUCCESSFULLY                              │
 ├─────────────────────────────────────────────────────────────────┤
 │  🆔 Session ID: Sent above                                      │
+│  🔑 Pairing Code: ${BOT_CONFIG.PAIRING_CODE}                    │
 │  ⚠️ DO NOT share this code with anyone!                        │
 │  🔒 Keep this code safe and secure                              │
 │  ⏰ Valid for 24 hours only                                     │
@@ -143,7 +144,6 @@ router.get('/', async (req, res) => {
 ├─────────────────────────────────────────────────────────────────┤
 │  🤖 Name: ${BOT_CONFIG.NAME}                                    │
 │  🔢 Version: ${BOT_CONFIG.VERSION}                              │
-│  🔑 Pairing Code: ${BOT_CONFIG.PAIRING_CODE}                    │
 │  👑 Owner: ${BOT_CONFIG.OWNER_NAME}                             │
 └─────────────────────────────────────────────────────────────────┘
 
@@ -179,14 +179,15 @@ ${FOOTER}`;
                         let ddd = await sock.sendMessage(sock.user.id, { text: e.toString() });
                         
                         let desc = `╔══════════════════════════════════════════════════════════════╗
-║                         ${BOT_CONFIG.NAME}                         ║
-║                   ✨ PREMIUM WHATSAPP BOT ✨                    ║
+║                      ${BOT_CONFIG.NAME}                      ║
+║                   ✨ PREMIUM WHATSAPP BOT ✨                   ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ┌─────────────────────────────────────────────────────────────────┐
 │  ⚠️ SESSION WARNING                                             │
 ├─────────────────────────────────────────────────────────────────┤
 │  🆔 Session ID: Sent above                                      │
+│  🔑 Pairing Code: ${BOT_CONFIG.PAIRING_CODE}                    │
 │  ⚠️ DO NOT share this code with anyone!                        │
 │  🔒 Keep this code safe and secure                              │
 │  ⏰ Valid for 24 hours only                                     │
@@ -224,7 +225,6 @@ ${FOOTER}`;
 ├─────────────────────────────────────────────────────────────────┤
 │  🤖 Name: ${BOT_CONFIG.NAME}                                    │
 │  🔢 Version: ${BOT_CONFIG.VERSION}                              │
-│  🔑 Pairing Code: ${BOT_CONFIG.PAIRING_CODE}                    │
 └─────────────────────────────────────────────────────────────────┘
 
 ${FOOTER}`;
