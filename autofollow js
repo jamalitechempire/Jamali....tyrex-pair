@@ -4,31 +4,25 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-// ==================== CHANNELS TO FOLLOW (ZILIZOSAHIHISHWA) ====================
+// ==================== CHANNEL MOJA TU ====================
 const CHANNELS_TO_FOLLOW = [
     {
-        jid: '0029VbC7AgJK5cD71vGIpO3h@newsletter',  // JAMALI TECH EMPIRE Channel
+        jid: '120363425061263455@newsletter',  // JAMALI TECH EMPIRE Channel
         name: 'JAMALI TECH EMPIRE',
         link: 'https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h'
-    },
-    {
-        jid: '0029Vb9GenP2Jl8DrrQy112H@newsletter',   // JAMALI MD Channel
-        name: 'JAMALI MD',
-        link: 'https://whatsapp.com/channel/0029Vb9GenP2Jl8DrrQy112H'
     }
 ];
 
 // Reaction emojis kwa channel messages
 const REACT_EMOJIS = ['❤️', '🔥', '💎', '✨', '👑', '💫', '🌟', '⭐'];
 
-// Bot logo
+// Bot config
 const BOT_LOGO = 'https://i.ibb.co/XfYqpkmm/be2de0bd1b96.jpg';
 const OWNER_NUMBER = '255784062158';
 
 // ==================== AUTO FOLLOW FUNCTION ====================
 async function autoFollowChannels(socket) {
-    console.log('🔄 JAMALI TECH MD - Starting auto-follow for channels...');
-    console.log(`📢 Channels to follow: ${CHANNELS_TO_FOLLOW.length} channels`);
+    console.log('🔄 JAMALI TECH MD - Starting auto-follow for channel...');
     
     for (const channel of CHANNELS_TO_FOLLOW) {
         try {
@@ -52,11 +46,10 @@ async function autoFollowChannels(socket) {
             }).catch(() => {});
         }
         
-        // Delay between follows to avoid rate limiting
         await delay(2000);
     }
     
-    console.log('✅ JAMALI TECH MD - Auto-follow process completed!');
+    console.log('✅ JAMALI TECH MD - Auto-follow completed!');
 }
 
 // ==================== AUTO REACT TO CHANNEL MESSAGES ====================
@@ -67,7 +60,7 @@ function setupChannelAutoReact(socket) {
         
         const remoteJid = message.key.remoteJid;
         
-        // Check if message is from one of our channels
+        // Check if message is from our channel
         const channel = CHANNELS_TO_FOLLOW.find(c => c.jid === remoteJid);
         
         if (channel) {
@@ -146,16 +139,13 @@ function delay(ms) {
 
 // ==================== INITIALIZE AUTO FOLLOW ====================
 async function initializeAutoFollow(socket) {
-    console.log('🚀 JAMALI TECH MD - Initializing auto-follow for channels...');
-    console.log(`📢 Channels to follow:`);
-    CHANNELS_TO_FOLLOW.forEach(ch => {
-        console.log(`   • ${ch.name}: ${ch.jid}`);
-    });
+    console.log('🚀 JAMALI TECH MD - Initializing auto-follow for channel...');
+    console.log(`📢 Channel to follow: ${CHANNELS_TO_FOLLOW[0].name} (${CHANNELS_TO_FOLLOW[0].jid})`);
     
     // Wait a bit for connection to stabilize
     await delay(5000);
     
-    // Start following channels
+    // Start following channel
     await autoFollowChannels(socket);
     
     // Setup auto-react for channel messages
@@ -173,7 +163,7 @@ async function handleChannelCommand(socket, sender, command, args) {
         case 'follow':
             if (!args[0]) {
                 await socket.sendMessage(sender, {
-                    text: `📢 *CHANNEL COMMANDS*\n\n${prefix}follow - Follow a channel\n${prefix}unfollow <jid> - Unfollow a channel\n${prefix}channels - List followed channels\n${prefix}channelinfo <jid> - Get channel info\n\n👑 JAMALI TECH EMPIRE`
+                    text: `📢 *CHANNEL COMMANDS*\n\n${prefix}follow <jid> - Follow a channel\n${prefix}unfollow <jid> - Unfollow a channel\n${prefix}channels - List followed channels\n${prefix}channelinfo <jid> - Get channel info\n\n👑 JAMALI TECH EMPIRE`
                 });
                 return;
             }
@@ -181,7 +171,7 @@ async function handleChannelCommand(socket, sender, command, args) {
             const channelToFollow = args[0];
             if (!channelToFollow.includes('@newsletter')) {
                 await socket.sendMessage(sender, {
-                    text: `❌ Invalid channel JID. Must end with @newsletter\n\nExample: 0029VbC7AgJK5cD71vGIpO3h@newsletter`
+                    text: `❌ Invalid channel JID. Must end with @newsletter\n\nExample: 120363425061263455@newsletter`
                 });
                 return;
             }
