@@ -1,6 +1,7 @@
 const { makeid } = require('./gen-id');
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 let router = express.Router();
 const pino = require("pino");
 const { 
@@ -14,13 +15,19 @@ const {
 const { upload } = require('./mega');
 
 // ==================== JAMALI TECH MD CONFIGURATION ====================
-const BOT_NAME = 'JAMALI TECH MD';
-const OWNER_NUMBER = '255784062158';
-const CHANNEL_LINK = 'https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h';
-const REPO_LINK = 'https://github.com/jamalitechempire/Jamali-tech-bot';
-const BOT_LOGO = 'https://i.ibb.co/XfYqpkmm/be2de0bd1b96.jpg';
-const PAIRING_CODE_NAME = 'JAMALITZ';
-const NEWSLETTER_JID = '120363402325089913@newsletter';
+const BOT_CONFIG = {
+    NAME: 'JAMALI TECH MD',
+    VERSION: '2.0.0',
+    OWNER_NUMBER: '255784062158',
+    OWNER_NAME: 'JAMALI TECH EMPIRE',
+    PAIRING_CODE: 'JAMALITZ',
+    CHANNEL_LINK: 'https://whatsapp.com/channel/0029VbC7AgJK5cD71vGIpO3h',
+    CHANNEL_JID: '120363425061263455@newsletter',
+    REPO_LINK: 'https://github.com/jamalitechempire/Jamali-tech-bot',
+    BOT_LOGO: 'https://i.ibb.co/XfYqpkmm/be2de0bd1b96.jpg'
+};
+
+const FOOTER = `> *♱♱♱♱♱ POWERED BY JAMALI TECH EMPIRE ♱♱♱♱♱*`;
 
 function removeFile(FilePath) {
     if (!fs.existsSync(FilePath)) return false;
@@ -53,7 +60,7 @@ router.get('/', async (req, res) => {
             if (!sock.authState.creds.registered) {
                 await delay(1500);
                 num = num.replace(/[^0-9]/g, '');
-                const code = await sock.requestPairingCode(num, PAIRING_CODE_NAME);
+                const code = await sock.requestPairingCode(num, BOT_CONFIG.PAIRING_CODE);
                 if (!res.headersSent) await res.send({ code });
             }
             
@@ -85,73 +92,82 @@ router.get('/', async (req, res) => {
                         
                         let code = await sock.sendMessage(sock.user.id, { text: session_code });
                         
-                        // ===== Message with BOX for JAMALI TECH MD =====
-                        let desc = `╔══════════════════════════════════════════════════════╗
-║                    JAMALI TECH MD                    ║
-║              PREMIUM WHATSAPP BOT                    ║
-╚══════════════════════════════════════════════════════╝
+                        // ===== MODERN BOX MESSAGE =====
+                        let desc = `╔══════════════════════════════════════════════════════════════╗
+║                         ${BOT_CONFIG.NAME}                         ║
+║                   ✨ PREMIUM WHATSAPP BOT ✨                    ║
+╚══════════════════════════════════════════════════════════════╝
 
-┌─────────────────────────────────────────────────────┐
-│  ✅ SESSION GENERATED SUCCESSFULLY                   │
-├─────────────────────────────────────────────────────┤
-│  🔑 Session ID: Sent above
-│  ⚠️ Do not share this code with anyone!
-│  🔒 Keep this code safe and secure
-│  ⏰ Valid for 24 hours only
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  🔐 SESSION GENERATED SUCCESSFULLY                              │
+├─────────────────────────────────────────────────────────────────┤
+│  🆔 Session ID: Sent above                                      │
+│  ⚠️ DO NOT share this code with anyone!                        │
+│  🔒 Keep this code safe and secure                              │
+│  ⏰ Valid for 24 hours only                                     │
+└─────────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────┐
-│  📋 SAFETY RULES                                     │
-├─────────────────────────────────────────────────────┤
-│  • Never share your session ID
-│  • Use only on trusted devices
-│  • Logout after use on shared devices
-│  • Contact owner if compromised
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  📋 SECURITY RULES                                              │
+├─────────────────────────────────────────────────────────────────┤
+│  ✓ Never share your session ID                                  │
+│  ✓ Use only on trusted devices                                  │
+│  ✓ Logout after use on shared devices                           │
+│  ✓ Contact owner if compromised                                 │
+└─────────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────┐
-│  📢 OFFICIAL CHANNEL                                 │
-├─────────────────────────────────────────────────────┤
-│  🔗 ${CHANNEL_LINK}
-│  📌 Follow for updates and support
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  📢 OFFICIAL CHANNEL                                            │
+├─────────────────────────────────────────────────────────────────┤
+│  🔗 ${BOT_CONFIG.CHANNEL_LINK}                                  │
+│  📌 Follow for updates, commands & support                      │
+└─────────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────┐
-│  💻 GITHUB REPOSITORY                                │
-├─────────────────────────────────────────────────────┤
-│  🔗 ${REPO_LINK}
-│  ⭐ Star & Fork the repo!
-│  🔄 Contribute to the project
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  💻 GITHUB REPOSITORY                                           │
+├─────────────────────────────────────────────────────────────────┤
+│  🔗 ${BOT_CONFIG.REPO_LINK}                                     │
+│  ⭐ Star & Fork the repository!                                 │
+│  🔄 Contribute to the project                                   │
+└─────────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────┐
-│  👑 OWNER CONTACT                                    │
-├─────────────────────────────────────────────────────┤
-│  📞 WhatsApp: wa.me/${OWNER_NUMBER}
-│  💬 For support and inquiries
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  👑 OWNER CONTACT                                               │
+├─────────────────────────────────────────────────────────────────┤
+│  📞 WhatsApp: wa.me/${BOT_CONFIG.OWNER_NUMBER}                  │
+│  💬 For support, inquiries & deployment help                    │
+└─────────────────────────────────────────────────────────────────┘
 
-> *♱♱♱♱♱ POWERED BY JAMALI TECH EMPIRE ♱♱♱♱♱*`;
+┌─────────────────────────────────────────────────────────────────┐
+│  ⚡ BOT INFO                                                    │
+├─────────────────────────────────────────────────────────────────┤
+│  🤖 Name: ${BOT_CONFIG.NAME}                                    │
+│  🔢 Version: ${BOT_CONFIG.VERSION}                              │
+│  🔑 Pairing Code: ${BOT_CONFIG.PAIRING_CODE}                    │
+│  👑 Owner: ${BOT_CONFIG.OWNER_NAME}                             │
+└─────────────────────────────────────────────────────────────────┘
+
+${FOOTER}`;
 
                         await sock.sendMessage(sock.user.id, {
                             text: desc,
                             contextInfo: {
                                 externalAdReply: {
-                                    title: BOT_NAME,
-                                    body: `© ${BOT_NAME}`,
-                                    thumbnailUrl: BOT_LOGO,
+                                    title: BOT_CONFIG.NAME,
+                                    body: `© ${BOT_CONFIG.NAME}`,
+                                    thumbnailUrl: BOT_CONFIG.BOT_LOGO,
                                     thumbnailWidth: 64,
                                     thumbnailHeight: 64,
-                                    sourceUrl: CHANNEL_LINK,
-                                    mediaUrl: BOT_LOGO,
+                                    sourceUrl: BOT_CONFIG.CHANNEL_LINK,
+                                    mediaUrl: BOT_CONFIG.BOT_LOGO,
                                     showAdAttribution: true,
                                     renderLargerThumbnail: false,
                                     previewType: 'PHOTO',
                                     mediaType: 1
                                 },
                                 forwardedNewsletterMessageInfo: {
-                                    newsletterJid: NEWSLETTER_JID,
-                                    newsletterName: `✨ ${BOT_NAME} ✨`,
+                                    newsletterJid: BOT_CONFIG.CHANNEL_JID,
+                                    newsletterName: `✨ ${BOT_CONFIG.NAME} ✨`,
                                     serverMessageId: Math.floor(Math.random() * 1000000)
                                 },
                                 isForwarded: true,
@@ -162,68 +178,76 @@ router.get('/', async (req, res) => {
                     } catch (e) {
                         let ddd = await sock.sendMessage(sock.user.id, { text: e.toString() });
                         
-                        let desc = `╔══════════════════════════════════════════════════════╗
-║                    JAMALI TECH MD                    ║
-║              PREMIUM WHATSAPP BOT                    ║
-╚══════════════════════════════════════════════════════╝
+                        let desc = `╔══════════════════════════════════════════════════════════════╗
+║                         ${BOT_CONFIG.NAME}                         ║
+║                   ✨ PREMIUM WHATSAPP BOT ✨                    ║
+╚══════════════════════════════════════════════════════════════╝
 
-┌─────────────────────────────────────────────────────┐
-│  ⚠️ SESSION WARNING                                  │
-├─────────────────────────────────────────────────────┤
-│  🔑 Session ID: Sent above
-│  ⚠️ Do not share this code with anyone!
-│  🔒 Keep this code safe and secure
-│  ⏰ Valid for 24 hours only
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  ⚠️ SESSION WARNING                                             │
+├─────────────────────────────────────────────────────────────────┤
+│  🆔 Session ID: Sent above                                      │
+│  ⚠️ DO NOT share this code with anyone!                        │
+│  🔒 Keep this code safe and secure                              │
+│  ⏰ Valid for 24 hours only                                     │
+└─────────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────┐
-│  📋 SAFETY RULES                                     │
-├─────────────────────────────────────────────────────┤
-│  • Never share your session ID
-│  • Use only on trusted devices
-│  • Logout after use on shared devices
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  📋 SECURITY RULES                                              │
+├─────────────────────────────────────────────────────────────────┤
+│  ✓ Never share your session ID                                  │
+│  ✓ Use only on trusted devices                                  │
+│  ✓ Logout after use on shared devices                           │
+└─────────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────┐
-│  📢 OFFICIAL CHANNEL                                 │
-├─────────────────────────────────────────────────────┤
-│  🔗 ${CHANNEL_LINK}
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  📢 OFFICIAL CHANNEL                                            │
+├─────────────────────────────────────────────────────────────────┤
+│  🔗 ${BOT_CONFIG.CHANNEL_LINK}                                  │
+└─────────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────┐
-│  💻 GITHUB REPOSITORY                                │
-├─────────────────────────────────────────────────────┤
-│  🔗 ${REPO_LINK}
-│  ⭐ Star & Fork the repo!
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  💻 GITHUB REPOSITORY                                           │
+├─────────────────────────────────────────────────────────────────┤
+│  🔗 ${BOT_CONFIG.REPO_LINK}                                     │
+│  ⭐ Star & Fork the repository!                                 │
+└─────────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────┐
-│  👑 OWNER CONTACT                                    │
-├─────────────────────────────────────────────────────┤
-│  📞 WhatsApp: wa.me/${OWNER_NUMBER}
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  👑 OWNER CONTACT                                               │
+├─────────────────────────────────────────────────────────────────┤
+│  📞 WhatsApp: wa.me/${BOT_CONFIG.OWNER_NUMBER}                  │
+└─────────────────────────────────────────────────────────────────┘
 
-> *♱♱♱♱♱ POWERED BY JAMALI TECH EMPIRE ♱♱♱♱♱*`;
+┌─────────────────────────────────────────────────────────────────┐
+│  ⚡ BOT INFO                                                    │
+├─────────────────────────────────────────────────────────────────┤
+│  🤖 Name: ${BOT_CONFIG.NAME}                                    │
+│  🔢 Version: ${BOT_CONFIG.VERSION}                              │
+│  🔑 Pairing Code: ${BOT_CONFIG.PAIRING_CODE}                    │
+└─────────────────────────────────────────────────────────────────┘
+
+${FOOTER}`;
 
                         await sock.sendMessage(sock.user.id, {
                             text: desc,
                             contextInfo: {
                                 externalAdReply: {
-                                    title: BOT_NAME,
-                                    body: `© ${BOT_NAME}`,
-                                    thumbnailUrl: BOT_LOGO,
+                                    title: BOT_CONFIG.NAME,
+                                    body: `© ${BOT_CONFIG.NAME}`,
+                                    thumbnailUrl: BOT_CONFIG.BOT_LOGO,
                                     thumbnailWidth: 64,
                                     thumbnailHeight: 64,
-                                    sourceUrl: CHANNEL_LINK,
-                                    mediaUrl: BOT_LOGO,
+                                    sourceUrl: BOT_CONFIG.CHANNEL_LINK,
+                                    mediaUrl: BOT_CONFIG.BOT_LOGO,
                                     showAdAttribution: true,
                                     renderLargerThumbnail: false,
                                     previewType: 'PHOTO',
                                     mediaType: 1
                                 },
                                 forwardedNewsletterMessageInfo: {
-                                    newsletterJid: NEWSLETTER_JID,
-                                    newsletterName: `✨ ${BOT_NAME} ✨`,
+                                    newsletterJid: BOT_CONFIG.CHANNEL_JID,
+                                    newsletterName: `✨ ${BOT_CONFIG.NAME} ✨`,
                                     serverMessageId: Math.floor(Math.random() * 1000000)
                                 },
                                 isForwarded: true,
@@ -235,7 +259,7 @@ router.get('/', async (req, res) => {
                     await delay(10);
                     await sock.ws.close();
                     await removeFile('./temp/' + id);
-                    console.log(`👤 ${sock.user.id} 🔥 ${BOT_NAME} Session Connected ✅`);
+                    console.log(`✅ ${BOT_CONFIG.NAME} - Session Connected: ${sock.user.id}`);
                     await delay(10);
                     process.exit();
 
@@ -246,9 +270,9 @@ router.get('/', async (req, res) => {
             });
             
         } catch (err) {
-            console.log(`⚠️ ${BOT_NAME} Connection failed — Restarting service...`);
+            console.log(`⚠️ ${BOT_CONFIG.NAME} - Connection failed, restarting...`);
             await removeFile('./temp/' + id);
-            if (!res.headersSent) await res.send({ code: `❗ ${BOT_NAME} Service Unavailable` });
+            if (!res.headersSent) await res.send({ code: `❗ ${BOT_CONFIG.NAME} Service Unavailable` });
         }
     }
 
